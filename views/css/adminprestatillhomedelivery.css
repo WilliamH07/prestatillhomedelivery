@@ -1,0 +1,67 @@
+@media print {
+	
+	#table-order thead {
+		display:none;
+	}
+	
+	.bootstrap .table-responsive-row tr {
+	    margin-bottom: 0;
+	    border-bottom: 1px solid #333;
+	    padding: 5px;
+	}
+	
+	.bootstrap .table tbody > tr > td:nth-child(3) {
+		width: 0!important;
+    	padding: 0;
+	}
+	
+	.bootstrap .table-responsive-row td {
+		display:table-cell;
+		line-height: inherit!important;
+	    overflow: hidden;
+	    padding-left: inherit!important;
+	    position: relative;
+	    width: inherit!important;
+	    text-align:inherit;
+	    text-overflow: inherit;
+    	white-space: inherit;
+	}
+	
+	.bootstrap .table-responsive-row td:before {
+		display:none;
+	}
+	
+	.bootstrap .table tbody>tr>td {
+		padding: 2px 30px;
+	}
+	
+	.bootstrap .table td.center, .bootstrap .table th.center {
+	    text-align: center;
+	    max-width: inherit;
+	    min-width: inherit;
+	    width: 10%!important;
+	}
+	
+	.bootstrap .table tbody>tr>td {
+		border-bottom:none;
+	}
+}
+
+#product_days_availability {
+	
+}
+
+#product_days_availability .available {
+	background: #85D94B;
+	cursor: pointer;
+}
+
+#product_days_availability .unavailable {
+	background:red;
+	cursor: pointer;
+}
+
+.adminproducts .availability_table {
+	overflow: auto;
+    margin-right: 20px;
+}

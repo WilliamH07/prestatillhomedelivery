@@ -1,0 +1,18 @@
+{shop_url}
+
+Ciao, {firstname} {lastname},
+
+Si prega di mostrare questa e-mail al fattorino.
+
+Lo slot di consegna: {msg_creneau}
+
+Riferimento ordine: {order_ref}
+
+Data ordine: {order_date}
+
+Riceverai tutte queste informazioni nel nostro negozio, nella sezione [Cronologia ordini] ({history_url}) del tuo account cliente.
+
+Se disponi di un account ospite, puoi seguire il tuo ordine tramite la sezione [Monitoraggio ospite] ({guest_tracking_url}) sul nostro negozio.
+
+[{} Shop_name] ({} shop_url)
+

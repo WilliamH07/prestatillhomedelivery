@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>prestatillhomedelivery</name>
+    <displayName><![CDATA[Livraison &agrave; proximit&eacute; avec cr&eacute;neaux horaires]]></displayName>
+    <version><![CDATA[3.0.0]]></version>
+    <description><![CDATA[Cr&eacute;neau de livraison &agrave; domicile pour Prestashop]]></description>
+    <author><![CDATA[Prestatill]]></author>
+    <tab><![CDATA[administration]]></tab>
+	<confirmUninstall><![CDATA[Souhaitez-vous réellement désinstaller le module ?]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>
