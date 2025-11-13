@@ -1,0 +1,98 @@
+/*
+* Prestatill Home Delivery Slots - Frontend Zones CSS
+*
+* Home Delivery Module with slots for Prestashop
+*
+*  @author    Laurent Baumgartner contact@adametdev.fr
+*  @copyright ADAM & DEV SAS
+*  @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
+*/
+
+.delivery-zones-container {
+    margin: 20px 0;
+    padding: 20px;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.delivery-zones-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 0 15px 0;
+    color: #333;
+}
+
+.delivery-zones-info {
+    margin-bottom: 15px;
+}
+
+#delivery-zones-map {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.delivery-zones-legend {
+    margin-top: 20px;
+}
+
+.delivery-zones-legend h4 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+    color: #333;
+}
+
+.zones-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.zone-item {
+    padding: 10px;
+    margin: 5px 0;
+    background: #f9f9f9;
+    border-left: 4px solid #ddd;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+}
+
+.zone-color-badge {
+    display: inline-block;
+    width: 30px;
+    height: 20px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-right: 10px;
+}
+
+.zone-info-window {
+    padding: 10px;
+    min-width: 200px;
+}
+
+.zone-info-window h4 {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.zone-info-window p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.customer-info-window {
+    padding: 10px;
+    min-width: 200px;
+}
+
+.customer-info-window h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #00aff0;
+}

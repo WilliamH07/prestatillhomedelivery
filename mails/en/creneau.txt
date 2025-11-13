@@ -1,19 +1,19 @@
-{shop_url}
-
-Hello {firstname} {lastname},
-
-Please show this email to the delivery man.
-
-Your delivery slot : {msg_creneau}
-
-Order reference : {order_ref}
-
-Date order : {order_date}
-
-You'll retreive all this informations in our shop, in section [Order history]({history_url}) of your customer account.
-
-If you have a guest account, you can follow your order via the [Guest Tracking] ({guest_tracking_url}) section on our shop.
-
-[{shop_name}]({shop_url})
-
-Powered by [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail=utm_campaign=footer_1-7)
+{shop_url}
+
+Hello {firstname} {lastname},
+
+Please show this email to the delivery man.
+
+Your delivery slot : {msg_creneau}
+
+Order reference : {order_ref}
+
+Date order : {order_date}
+
+You'll retreive all this informations in our shop, in section [Order history]({history_url}) of your customer account.
+
+If you have a guest account, you can follow your order via the [Guest Tracking] ({guest_tracking_url}) section on our shop.
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail=utm_campaign=footer_1-7)

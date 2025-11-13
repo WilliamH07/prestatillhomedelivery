@@ -1,0 +1,45 @@
+/*
+* Prestatill Home Delivery Slots - Admin Zones CSS
+*
+* Home Delivery Module with slots for Prestashop
+*
+*  @author    Laurent Baumgartner contact@adametdev.fr
+*  @copyright ADAM & DEV SAS
+*  @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
+*/
+
+.zone-map-container {
+    margin: 20px 0;
+}
+
+.zone-map-tools {
+    margin: 15px 0;
+}
+
+.zone-map-tools .btn-group {
+    display: inline-flex;
+}
+
+.zone-map-tools button.active {
+    background-color: #00aff0;
+    color: #fff;
+    border-color: #00aff0;
+}
+
+#zone-map {
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.zone-map-container .alert {
+    margin-bottom: 15px;
+}
+
+.zone-map-container .alert ul {
+    margin: 10px 0 0 0;
+    padding-left: 20px;
+}
+
+.zone-map-container .alert li {
+    margin: 5px 0;
+}

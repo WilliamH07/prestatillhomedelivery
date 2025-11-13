@@ -1,90 +1,90 @@
-.hd_order_creneau {
-	position:relative;
-	border-radius:4px;
-	min-height: 54px;
-	margin: 5px 0;
-}
-
-.hd_order_creneau button {
-	margin-top:10px;
-}
-
-.hd_order_creneau button i {
-	padding: 0px 8px 0px 0;
-    font-size: 16px;
-}
-
-.hd_order_creneau_edit {
-	border: 1px solid #ddd;
-    padding: 10px 5px;
-    border-radius: 0 0 4px 4px;
-    display:none;
-}
-
-.hd_order_creneau_edit button {
-	width: 100%;
-}
-
-.hd_order_creneau.active,
-.hd_order_creneau_new_button.active {
-	border-radius:4px 4px 0 0;
-	margin-bottom:0;
-}
-
-#hd_shipping_table {
-	margin-top:15px;
-}
-
-.hd_message_validation {
-	margin-top:10px;
-}
-
-.hd_order_creneau_edit .send_email {
-	padding: 5px 0 0;
-    line-height: 30px;
-    margin: 10px 0 0;
-    border-radius: 0 0 4px 4px;
-    border-top: 1px dashed #ddd;
-}
-
-.hd_order_creneau_new_button {
-	background: #349AEF;
-    padding: 5px;
-    border-radius: 4px;
-    text-align: right;
-    margin: 5px 0;
-}
-
-.hd_order_creneau_new_button i {
-	font-size: 24px;
-    float: left;
-    color: #FFF;
-    padding-top: 4px;
-    padding-left: 4px;
-}
-
-.hd_order_creneau_new_button span {
-	float: left;
-    padding-left: 10px;
-    padding-top: 7px;
-    font-size: 13px;
-    color: #FFF;
-}
-
-.hd_order_creneau_edit #table_dispo,
-.hd_order_creneau_edit #table_dispo_head {
-	margin:0;
-}
-
-.hd_order_creneau_edit #table_creneau {
-	margin-bottom:10px;
-}
-
-#hd_dispo_overlay {
-	z-index: 100;
-}
-
-
-.adminprestatillhomedelivery .hd_order_creneau_edit {
-	background:#FFF;
-}
+.hd_order_creneau {
+	position:relative;
+	border-radius:4px;
+	min-height: 54px;
+	margin: 5px 0;
+}
+
+.hd_order_creneau button {
+	margin-top:10px;
+}
+
+.hd_order_creneau button i {
+	padding: 0px 8px 0px 0;
+    font-size: 16px;
+}
+
+.hd_order_creneau_edit {
+	border: 1px solid #ddd;
+    padding: 10px 5px;
+    border-radius: 0 0 4px 4px;
+    display:none;
+}
+
+.hd_order_creneau_edit button {
+	width: 100%;
+}
+
+.hd_order_creneau.active,
+.hd_order_creneau_new_button.active {
+	border-radius:4px 4px 0 0;
+	margin-bottom:0;
+}
+
+#hd_shipping_table {
+	margin-top:15px;
+}
+
+.hd_message_validation {
+	margin-top:10px;
+}
+
+.hd_order_creneau_edit .send_email {
+	padding: 5px 0 0;
+    line-height: 30px;
+    margin: 10px 0 0;
+    border-radius: 0 0 4px 4px;
+    border-top: 1px dashed #ddd;
+}
+
+.hd_order_creneau_new_button {
+	background: #349AEF;
+    padding: 5px;
+    border-radius: 4px;
+    text-align: right;
+    margin: 5px 0;
+}
+
+.hd_order_creneau_new_button i {
+	font-size: 24px;
+    float: left;
+    color: #FFF;
+    padding-top: 4px;
+    padding-left: 4px;
+}
+
+.hd_order_creneau_new_button span {
+	float: left;
+    padding-left: 10px;
+    padding-top: 7px;
+    font-size: 13px;
+    color: #FFF;
+}
+
+.hd_order_creneau_edit #table_dispo,
+.hd_order_creneau_edit #table_dispo_head {
+	margin:0;
+}
+
+.hd_order_creneau_edit #table_creneau {
+	margin-bottom:10px;
+}
+
+#hd_dispo_overlay {
+	z-index: 100;
+}
+
+
+.adminprestatillhomedelivery .hd_order_creneau_edit {
+	background:#FFF;
+}

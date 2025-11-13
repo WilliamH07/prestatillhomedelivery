@@ -1,19 +1,19 @@
-{shop_url}
-
-Bonjour {firstname} {lastname},
-
-Veuillez montrer cet email au livreur.
-
-Votre créneau de livraison : {msg_creneau}
-
-Référence de commande : {order_ref}
-
-Date de commande : {order_date}
-
-Vous retrouvrez toutes ces informations dans votre compte, rubrique [Order history] [Order history]({history_url}) de votre compte.
-
-Si vous avez commandé en tant qu'invité, vous pouvez suivre votre commande via cette url [Guest Tracking] ({guest_tracking_url}) de notre boutique.
-
-[{shop_name}]({shop_url})
-
-Powered by [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail=utm_campaign=footer_1-7)
+{shop_url}
+
+Bonjour {firstname} {lastname},
+
+Veuillez montrer cet email au livreur.
+
+Votre créneau de livraison : {msg_creneau}
+
+Référence de commande : {order_ref}
+
+Date de commande : {order_date}
+
+Vous retrouvrez toutes ces informations dans votre compte, rubrique [Order history] [Order history]({history_url}) de votre compte.
+
+Si vous avez commandé en tant qu'invité, vous pouvez suivre votre commande via cette url [Guest Tracking] ({guest_tracking_url}) de notre boutique.
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop.com/?utm_source=marchandprestashop&utm_medium=e-mail=utm_campaign=footer_1-7)
