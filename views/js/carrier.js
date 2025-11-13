@@ -333,6 +333,41 @@ $(document).ready(function() {
                     },
 
                     success: function(data) {
+                        // DEBUG: Log complete response
+                        console.log('=== PRESTATILL HOME DELIVERY DEBUG ===');
+                        console.log('Complete AJAX Response:', data);
+
+                        if (data.message && data.message.debug_logs) {
+                            console.log('=== DEBUG LOGS ===');
+                            console.log('ID Address:', data.message.debug_logs.id_address);
+                            console.log('Address Loaded:', data.message.debug_logs.address_loaded);
+                            console.log('Full Address:', data.message.debug_logs.full_address);
+                            console.log('Address Details:', data.message.debug_logs.address_details);
+                            console.log('Has Google API Key:', data.message.debug_logs.has_google_api_key);
+
+                            if (data.message.debug_logs.has_google_api_key) {
+                                console.log('Google API URL:', data.message.debug_logs.google_api_url);
+                                console.log('Google API Response:', data.message.debug_logs.google_api_response);
+                                console.log('Google Coordinates:', data.message.debug_logs.google_coordinates);
+                                console.log('Google Status:', data.message.debug_logs.google_status);
+                                console.log('Google Error:', data.message.debug_logs.google_error);
+                            } else {
+                                console.log('Nominatim URL:', data.message.debug_logs.nominatim_url);
+                                console.log('Nominatim Raw Response:', data.message.debug_logs.nominatim_raw_response);
+                                console.log('Nominatim JSON Response:', data.message.debug_logs.nominatim_json_response);
+                                console.log('Nominatim Coordinates:', data.message.debug_logs.nominatim_coordinates);
+                                console.log('Nominatim Error:', data.message.debug_logs.nominatim_error);
+                            }
+
+                            console.log('Final Coordinates:', data.message.debug_logs.final_coordinates);
+                            console.log('ID Store Found:', data.message.debug_logs.id_store_found);
+                            console.log('Error Type:', data.message.debug_logs.error_type);
+                            console.log('Validation:', data.message.debug_logs.validation);
+                            console.log('Error:', data.message.debug_logs.error);
+                        }
+
+                        console.log('Address Valid:', data.message.address_valid);
+                        console.log('===================================');
 
                         if (data.status == 'success') {
 
@@ -459,6 +494,159 @@ $(document).ready(function() {
             },
 
             success: function(data) {
+                // DEBUG: Log complete response
+                console.log('=== PRESTATILL HOME DELIVERY DEBUG (MAIN LOAD) ===');
+                console.log('Complete AJAX Response:', data);
+
+                if (data.message && data.message.debug_logs) {
+                    console.log('=== DEBUG LOGS ===');
+                    console.log('Zones Enabled:', data.message.debug_logs.zones_enabled);
+                    console.log('ID Address:', data.message.debug_logs.id_address);
+                    console.log('Address Loaded:', data.message.debug_logs.address_loaded);
+                    console.log('Full Address:', data.message.debug_logs.full_address);
+                    console.log('Address Details:', data.message.debug_logs.address_details);
+
+                    // Afficher les tentatives de géocodage
+                    console.log('--- GEOCODING ATTEMPTS ---');
+                    console.log('Attempts:', data.message.debug_logs.geocoding_attempts);
+
+                    // Nominatim
+                    if (data.message.debug_logs.nominatim_url) {
+                        console.log('1️⃣ Nominatim URL:', data.message.debug_logs.nominatim_url);
+                        console.log('Nominatim Response:', data.message.debug_logs.nominatim_raw_response);
+                        console.log('Nominatim Coordinates:', data.message.debug_logs.nominatim_coordinates);
+                        console.log('Nominatim Error:', data.message.debug_logs.nominatim_error);
+                    }
+
+                    // Geocode.Maps.Co
+                    if (data.message.debug_logs.geocode_maps_url) {
+                        console.log('2️⃣ Geocode.Maps.Co URL:', data.message.debug_logs.geocode_maps_url);
+                        console.log('Geocode.Maps.Co Response:', data.message.debug_logs.geocode_maps_raw_response);
+                        console.log('Geocode.Maps.Co Coordinates:', data.message.debug_logs.geocode_maps_coordinates);
+                        console.log('Geocode.Maps.Co Error:', data.message.debug_logs.geocode_maps_error);
+                    }
+
+                    // Google Maps
+                    if (data.message.debug_logs.google_api_url) {
+                        console.log('3️⃣ Google Maps URL:', data.message.debug_logs.google_api_url);
+                        console.log('Google Maps Response:', data.message.debug_logs.google_api_response);
+                        console.log('Google Maps Coordinates:', data.message.debug_logs.google_coordinates);
+                        console.log('Google Maps Error:', data.message.debug_logs.google_error);
+                    }
+
+                    console.log('--- FINAL RESULT ---');
+                    console.log('Final Coordinates:', data.message.debug_logs.final_coordinates);
+
+                    // Display zones search parameters
+                    if (data.message.debug_logs.search_params) {
+                        console.log('--- ZONES SEARCH PARAMETERS ---');
+                        console.log('ID Shop:', data.message.debug_logs.search_params.id_shop);
+                        console.log('ID Carrier:', data.message.debug_logs.search_params.id_carrier);
+                        if (data.message.debug_logs.sql_query) {
+                            console.log('SQL Query:', data.message.debug_logs.sql_query);
+                        }
+                    }
+
+                    // Display zones information
+                    if (data.message.debug_logs.active_zones !== undefined) {
+                        console.log('--- DELIVERY ZONES ANALYSIS ---');
+                        console.log('Total Active Zones Found:', data.message.debug_logs.zones_count);
+
+                        data.message.debug_logs.active_zones.forEach(function(zone, index) {
+                            console.log('\n🗺️ Zone ' + (index + 1) + ':', zone.zone_name);
+                            console.log('  ID:', zone.id_delivery_zone);
+                            console.log('  Type:', zone.zone_type);
+                            console.log('  Store ID:', zone.id_store);
+                            console.log('  Carrier ID:', zone.id_carrier);
+                            console.log('  Active:', zone.active);
+                            console.log('  Priority:', zone.priority);
+
+                            if (zone.zone_type === 'polygon' && zone.zone_data) {
+                                console.log('  Polygon Points (' + zone.zone_data.length + ' vertices):');
+
+                                // Calculate polygon bounds
+                                let minLat = Math.min(...zone.zone_data.map(p => p.lat));
+                                let maxLat = Math.max(...zone.zone_data.map(p => p.lat));
+                                let minLng = Math.min(...zone.zone_data.map(p => p.lng));
+                                let maxLng = Math.max(...zone.zone_data.map(p => p.lng));
+
+                                console.log('  📐 Polygon Bounds:');
+                                console.log('    Latitude Range:', minLat.toFixed(7), 'to', maxLat.toFixed(7));
+                                console.log('    Longitude Range:', minLng.toFixed(7), 'to', maxLng.toFixed(7));
+
+                                // Compare with test point
+                                if (data.message.debug_logs.final_coordinates) {
+                                    let testLat = parseFloat(data.message.debug_logs.final_coordinates.latitude);
+                                    let testLng = parseFloat(data.message.debug_logs.final_coordinates.longitude);
+
+                                    console.log('  📍 Test Point:', testLat.toFixed(7), ',', testLng.toFixed(7));
+
+                                    let latInRange = testLat >= minLat && testLat <= maxLat;
+                                    let lngInRange = testLng >= minLng && testLng <= maxLng;
+
+                                    if (latInRange && lngInRange) {
+                                        console.log('  ✅ Test point is within polygon bounding box');
+                                    } else {
+                                        console.log('  ❌ Test point is OUTSIDE polygon bounding box:');
+                                        if (!latInRange) {
+                                            if (testLat < minLat) {
+                                                console.log('    ⬇️ Point is', (minLat - testLat).toFixed(7), 'degrees SOUTH of polygon (≈', Math.round((minLat - testLat) * 111000), 'meters)');
+                                            } else {
+                                                console.log('    ⬆️ Point is', (testLat - maxLat).toFixed(7), 'degrees NORTH of polygon (≈', Math.round((testLat - maxLat) * 111000), 'meters)');
+                                            }
+                                        }
+                                        if (!lngInRange) {
+                                            if (testLng < minLng) {
+                                                console.log('    ⬅️ Point is', (minLng - testLng).toFixed(7), 'degrees WEST of polygon (≈', Math.round((minLng - testLng) * 111000), 'meters)');
+                                            } else {
+                                                console.log('    ➡️ Point is', (testLng - maxLng).toFixed(7), 'degrees EAST of polygon (≈', Math.round((testLng - maxLng) * 111000), 'meters)');
+                                            }
+                                        }
+                                    }
+                                }
+
+                                // Display all polygon points
+                                console.log('  All Polygon Coordinates:');
+                                zone.zone_data.forEach(function(point, idx) {
+                                    console.log('    Point ' + (idx + 1) + ':', point.lat.toFixed(7), ',', point.lng.toFixed(7));
+                                });
+                            } else if (zone.zone_type === 'circle' && zone.zone_data) {
+                                console.log('  Circle Center:', zone.zone_data.center.lat + ',' + zone.zone_data.center.lng);
+                                console.log('  Radius:', zone.zone_data.radius, 'meters');
+                            } else if (zone.zone_type === 'rectangle' && zone.zone_data) {
+                                console.log('  Rectangle Bounds:', zone.zone_data.bounds);
+                            }
+                        });
+                        console.log('\n--- END ZONES ANALYSIS ---\n');
+                    }
+
+                    console.log('ID Store Found:', data.message.debug_logs.id_store_found);
+
+                    // Display store information if found
+                    if (data.message.debug_logs.store_info) {
+                        console.log('--- RESTAURANT INFORMATION ---');
+                        console.log('🏪 Restaurant Name:', data.message.debug_logs.store_info.name);
+                        console.log('Address:', data.message.debug_logs.store_info.address1);
+                        if (data.message.debug_logs.store_info.address2) {
+                            console.log('Address 2:', data.message.debug_logs.store_info.address2);
+                        }
+                        console.log('City:', data.message.debug_logs.store_info.postcode, data.message.debug_logs.store_info.city);
+                        if (data.message.debug_logs.store_info.phone) {
+                            console.log('Phone:', data.message.debug_logs.store_info.phone);
+                        }
+                        if (data.message.debug_logs.store_info.hours) {
+                            console.log('Hours:', data.message.debug_logs.store_info.hours);
+                        }
+                    }
+
+                    console.log('Error Type:', data.message.debug_logs.error_type);
+                    console.log('Validation:', data.message.debug_logs.validation);
+                    console.log('Error:', data.message.debug_logs.error);
+                    console.log('Zones Disabled Message:', data.message.debug_logs.zones_disabled_message);
+                }
+
+                console.log('Address Valid:', data.message.address_valid);
+                console.log('===================================');
 
 
 
@@ -476,7 +664,7 @@ $(document).ready(function() {
 
                             $('#address_max_dist').val(data.message.address_valid[0].distance);
 
-                            
+
 
                             if(!$('#checkout-delivery-step').hasClass('-current')) {
 
@@ -484,7 +672,7 @@ $(document).ready(function() {
 
                             }
 
-                            
+
 
                             $('#hd_shop_selected').removeClass('hd_big_danger').addClass('alert-success');
 
@@ -494,11 +682,11 @@ $(document).ready(function() {
 
                             $('#hd_creneau_selected').removeClass('hd_big_danger alert-success').addClass('alert-warning');
 
-                            
+
 
                             _createDaysTable(1);
 
-                            
+
 
                             if(parseInt(data.message.nbr_to_display) > 30)
 

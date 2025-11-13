@@ -73,7 +73,29 @@ class PrestatillHomeDeliveryZone extends ObjectModel
 
         $sql .= ' ORDER BY `priority` DESC';
 
-        return Db::getInstance()->executeS($sql);
+        // DEBUG: Log the SQL query
+        if (defined('_PS_MODE_DEV_') && _PS_MODE_DEV_) {
+            PrestaShopLogger::addLog(
+                'PrestatillHomeDeliveryZone::getActiveZones - SQL: '.$sql,
+                1,
+                null,
+                'PrestatillHomeDeliveryZone'
+            );
+        }
+
+        $result = Db::getInstance()->executeS($sql);
+
+        // DEBUG: Log the result count
+        if (defined('_PS_MODE_DEV_') && _PS_MODE_DEV_) {
+            PrestaShopLogger::addLog(
+                'PrestatillHomeDeliveryZone::getActiveZones - Found '.count($result).' zones',
+                1,
+                null,
+                'PrestatillHomeDeliveryZone'
+            );
+        }
+
+        return $result;
     }
 
     /**
@@ -108,13 +130,42 @@ class PrestatillHomeDeliveryZone extends ObjectModel
      */
     public static function getStoreByCoordinates($latitude, $longitude, $id_carrier = null, $id_shop = null)
     {
-        $zones = self::getActiveZones($id_shop, $id_carrier);
+        // S'assurer que les coordonnées sont des floats
+        $latitude = (float)$latitude;
+        $longitude = (float)$longitude;
+
+        // Load ALL active zones without filters, like the back-office does
+        $sql = 'SELECT * FROM `'._DB_PREFIX_.'prestatill_homedelivery_delivery_zones` WHERE `active` = 1 ORDER BY `priority` DESC';
+        $zones = Db::getInstance()->executeS($sql);
+
+        // DEBUG: Log pour le développement
+        if (defined('_PS_MODE_DEV_') && _PS_MODE_DEV_) {
+            PrestaShopLogger::addLog(
+                'PrestatillHomeDeliveryZone::getStoreByCoordinates - Testing point: lat='.$latitude.', lng='.$longitude.
+                ' - Found '.count($zones).' zones (ALL active zones, no filters)',
+                1,
+                null,
+                'PrestatillHomeDeliveryZone'
+            );
+        }
 
         foreach ($zones as $zone) {
             $zone_data = json_decode($zone['zone_data'], true);
 
             if ($zone['zone_type'] === 'polygon') {
-                if (self::isPointInPolygon($latitude, $longitude, $zone_data)) {
+                $is_in_polygon = self::isPointInPolygon($latitude, $longitude, $zone_data);
+
+                // DEBUG
+                if (defined('_PS_MODE_DEV_') && _PS_MODE_DEV_) {
+                    PrestaShopLogger::addLog(
+                        'Zone "'.$zone['zone_name'].'" (ID='.$zone['id_delivery_zone'].'): type=polygon, result='.($is_in_polygon ? 'TRUE' : 'FALSE'),
+                        1,
+                        null,
+                        'PrestatillHomeDeliveryZone'
+                    );
+                }
+
+                if ($is_in_polygon) {
                     return (int)$zone['id_store'];
                 }
             } elseif ($zone['zone_type'] === 'circle') {
@@ -144,12 +195,21 @@ class PrestatillHomeDeliveryZone extends ObjectModel
         $vertices_count = count($polygon);
         $is_inside = false;
 
+        // Ray casting algorithm: trace une ligne horizontale depuis le point
+        // et compte combien de fois elle intersecte les bords du polygone
         for ($i = 0, $j = $vertices_count - 1; $i < $vertices_count; $j = $i++) {
-            $xi = $polygon[$i]['lat'];
-            $yi = $polygon[$i]['lng'];
-            $xj = $polygon[$j]['lat'];
-            $yj = $polygon[$j]['lng'];
+            // Coordonnées des sommets du polygone
+            // xi, yi = latitude, longitude du point i
+            // xj, yj = latitude, longitude du point j
+            $xi = (float)$polygon[$i]['lat'];
+            $yi = (float)$polygon[$i]['lng'];
+            $xj = (float)$polygon[$j]['lat'];
+            $yj = (float)$polygon[$j]['lng'];
 
+            // Vérifie si le rayon horizontal depuis le point intersecte le segment [i,j]
+            // 1. Le segment doit traverser la ligne horizontale passant par le point
+            //    (une longitude du segment doit être au-dessus, l'autre en-dessous)
+            // 2. L'intersection doit être à droite du point (latitude plus grande)
             $intersect = (($yi > $longitude) != ($yj > $longitude))
                 && ($latitude < ($xj - $xi) * ($longitude - $yi) / ($yj - $yi) + $xi);
 
