@@ -323,4 +323,101 @@ class AdminPrestatillHomeDeliveryZonesController extends ModuleAdminController
             'zones' => $zones,
         )));
     }
+
+    public function ajaxProcessGetStoresAndCarriers()
+    {
+        // Get stores
+        $stores = Store::getStores();
+        $stores_data = array();
+        foreach ($stores as $store) {
+            $stores_data[] = array(
+                'id_store' => $store['id_store'],
+                'name' => $store['name'],
+                'city' => isset($store['city']) ? $store['city'] : '',
+            );
+        }
+
+        // Get carriers
+        $carriers = Carrier::getCarriers(
+            $this->context->language->id,
+            false,
+            false,
+            false,
+            null,
+            Carrier::ALL_CARRIERS
+        );
+        $carriers_data = array();
+        foreach ($carriers as $carrier) {
+            $carriers_data[] = array(
+                'id_carrier' => $carrier['id_carrier'],
+                'id_reference' => $carrier['id_reference'],
+                'name' => $carrier['name'],
+            );
+        }
+
+        die(json_encode(array(
+            'status' => 'success',
+            'stores' => $stores_data,
+            'carriers' => $carriers_data,
+        )));
+    }
+
+    public function ajaxProcessGetZone()
+    {
+        $id_delivery_zone = (int)Tools::getValue('id_delivery_zone');
+
+        if ($id_delivery_zone) {
+            $zone = new PrestatillHomeDeliveryZone($id_delivery_zone);
+
+            if (Validate::isLoadedObject($zone)) {
+                die(json_encode(array(
+                    'status' => 'success',
+                    'zone' => array(
+                        'id_delivery_zone' => $zone->id,
+                        'zone_name' => $zone->zone_name,
+                        'id_store' => $zone->id_store,
+                        'id_carrier' => $zone->id_carrier,
+                        'zone_type' => $zone->zone_type,
+                        'zone_data' => $zone->zone_data,
+                        'zone_color' => $zone->zone_color,
+                        'priority' => $zone->priority,
+                        'active' => $zone->active,
+                    ),
+                )));
+            }
+        }
+
+        die(json_encode(array(
+            'status' => 'error',
+            'message' => $this->l('Zone not found'),
+        )));
+    }
+
+    public function ajaxProcessSaveDeliveryZone()
+    {
+        return $this->ajaxProcessSaveZone();
+    }
+
+    public function ajaxProcessDeleteDeliveryZone()
+    {
+        $id_delivery_zone = (int)Tools::getValue('id_delivery_zone');
+
+        if ($id_delivery_zone) {
+            $zone = new PrestatillHomeDeliveryZone($id_delivery_zone);
+
+            if (Validate::isLoadedObject($zone)) {
+                if ($zone->delete()) {
+                    die(json_encode(array(
+                        'status' => 'success',
+                        'message' => $this->l('Zone deleted successfully'),
+                    )));
+                }
+            }
+        }
+
+        die(json_encode(array(
+            'status' => 'error',
+            'message' => $this->l('Error deleting zone'),
+        )));
+    }
 }
